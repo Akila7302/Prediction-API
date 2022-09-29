@@ -64,7 +64,8 @@ async def get_predict(data: Item):
 
     return {
         "data": {
-            'prediction': pred_value
+            'prediction': pred_value,
+            'status': 'Closed' if pred_value == 0 else 'Busy' if pred_value >= 75 else ('Not Too Busy' if pred_value < 75 and pred_value > 20 else 'Not Busy'),
         }
     }
 
