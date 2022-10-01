@@ -25,11 +25,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Loading up the trained model
 
-
+# Loading up the trained model for get the busy count
 def prediction(lst):
     filename = './model/predictor.pkl'
+    with open(filename, 'rb') as file:
+        model = pickle.load(file)
+    pred_value = model.predict([lst]).tolist()[0]
+    return pred_value
+
+
+# Loading up the trained model for get the best time
+def timesuggest(lst):
+    filename = './model/bestTime.pkl'
     with open(filename, 'rb') as file:
         model = pickle.load(file)
     pred_value = model.predict([lst]).tolist()[0]
@@ -50,7 +58,7 @@ def read_root():
     return {"data": "Let's predict busy times"}
 
 
-# Setting up the prediction route
+# Setting up the prediction route for busy count
 @app.post("/prediction")
 async def get_predict(data: Item):
     feature_list = []
@@ -66,6 +74,42 @@ async def get_predict(data: Item):
         "data": {
             'prediction': pred_value,
             'status': 'Closed' if pred_value == 0 else 'Busy' if pred_value >= 75 else ('Not Too Busy' if pred_value < 75 and pred_value > 20 else 'Not Busy'),
+        }
+    }
+
+
+# Setting up the prediction route for best time
+@app.post("/timesuggest")
+async def get_predict(data: Item):
+    feature_list = []
+
+    feature_list.append(int(data.id))
+    feature_list.append(int(data.month))
+    feature_list.append(int(data.day))
+    feature_list.append(int(data.time))
+
+    pred_value = timesuggest(feature_list)
+
+    return {
+        "data": {
+            'prediction': pred_value,
+            'best_time': '6AM' if pred_value == 6
+            else '7AM' if pred_value == 7
+            else '8AM' if pred_value == 8
+            else '9AM' if pred_value == 9
+            else '10AM' if pred_value == 10
+            else '11AM' if pred_value == 11
+            else '12PM' if pred_value == 12
+            else '1PM' if pred_value == 13
+            else '2PM' if pred_value == 14
+            else '3PM' if pred_value == 15
+            else '4PM' if pred_value == 16
+            else '5PM' if pred_value == 17
+            else '6PM' if pred_value == 18
+            else '7PM' if pred_value == 19
+            else '8PM' if pred_value == 20
+            else 'Can visit anytime' if pred_value == 24
+            else 'It is not the best time to visit!',
         }
     }
 
