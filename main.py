@@ -199,7 +199,7 @@ async def get_predict(data: Item):
             if pred_value == 133
             else ["Dambulla Royal Cave Temple", "Nalanda Gedige", "Pidurangala Royal Cave Temple", "Sigiriya", "Wasgamuwa National Park"]
             if pred_value == 144
-            else [["Bahiravakanda Temple"], ["Ceylon Tea Measeum"], ["International Buddhist Measeum"], ["Kandy Lake"], ["Knuckles Mountain Range"], ["Lankathilaka Temple"], ["Peradeniya Botanical Gardens"], ["Pinnawala Elephant Orphanage"], ["Temple Of The Tooth Relic"], ["Udawattekele Sanctuary"]]
+            else [{"Bahiravakanda Temple"}, {"Ceylon Tea Measeum"}, {"International Buddhist Measeum"}, {"Kandy Lake"}, {"Knuckles Mountain Range"}, {"Lankathilaka Temple"}, {"Peradeniya Botanical Gardens"}, {"Pinnawala Elephant Orphanage"}, {"Temple Of The Tooth Relic"}, {"Udawattekele Sanctuary"}]
             if pred_value == 115
             else ["Abhayagiriya", "Isurumuniya", "Jethawanaramaya", "Kalu Diya Pokuna Pond", "Lovamahapaya", "Mihintale", "Ranmasu Uyana", "Ritigala Forest Monastery", "Ruwanweliseya", "Sri Maha Bodhiya", "Thuparamaya"]
             if pred_value == 26
